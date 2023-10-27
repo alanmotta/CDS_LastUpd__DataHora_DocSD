@@ -1,0 +1,18 @@
+@AbapCatalog.sqlViewName: 'ZCDS_REP_CDHDR'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Data de atualização documentos'
+define view ZCDS_REP_OS_CDHDR
+  as select from cdhdr            as a
+    inner join   vbfa             as f on a.objectid = f.vbeln
+                                       or a.objectid = f.vbelv
+    inner join   ztbc_param_fisia as p on a.tcode = p.low
+{
+  key f.vbelv,
+      max( a.changenr ) as changenr
+}
+where
+  p.process_id = 'ZTSD_0016_LOG ALTERAÇÃO'
+group by
+  f.vbelv
