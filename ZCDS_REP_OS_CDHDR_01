@@ -1,0 +1,16 @@
+@AbapCatalog.sqlViewName: 'ZCDS_REP_CDHDR01'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Busca objetos alterados de forma ordenada por data e hora'
+define view ZCDS_REP_OS_CDHDR_01
+  as select from cdhdr
+{
+  key objectclas,
+  key objectid,
+  key changenr,
+      username,
+      udate,
+      utime,
+      tcode
+}
