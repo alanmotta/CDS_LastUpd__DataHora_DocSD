@@ -1,0 +1,35 @@
+@AbapCatalog.sqlViewName: 'ZCDS_REP_ROS02'  
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Report Order Status'
+define view ZCDS_REPORT_ORDER_STATUS as select from vbap 
+
+    left outer join vbak    
+                on vbak.vbeln = vbap.vbeln
+.
+.
+.
+
+   left outer join ZCDS_REP_OS_CDHDR as c
+                on c.vbelv = vbak.vbeln
+                
+   left outer join ZCDS_REP_OS_CDHDR_01 as cdhdr
+                on cdhdr.changenr = c.changenr
+
+{
+
+    key vbap.vbeln as salesorder,
+    key vbap.posnr as linhacancel,
+        vbak.vbtyp,
+        vbak.aedat,
+.
+.
+.
+
+        cdhdr.udate as udate,
+        cdhdr.utime as utime,
+.
+.
+.
+}
